@@ -32,7 +32,7 @@ ARGV.each{|fullpass|
         id = filename.match(/nc\d+/)[0] #コモンズID
         ext = filename.scan(/\.\w+/).last #拡張子
         doc = get_html("http://commons.nicovideo.jp/material/#{id}") #Nokogiriでコモンズの素材ページを切り刻む
-        title = doc.xpath('//div[@class="commons_title"]').text #素材タイトル取得、素材が存在しない場合""が返る
+        title = doc.xpath('//div[@class="materialHeadTitle"]').text #素材タイトル取得、素材が存在しない場合""が返る
         title.gsub!(/【.*?】/,"") if title.gsub(/【.*】/,"") #「【ジャンル】素材名【補足】」みたいな名前が多いので【】で挟まれた部分をタイトルから削除
         title.gsub!(/[\\\/:\*\?"<>\|]/, " ") if title.gsub!(/[\\\/:\*\?"<>\|]/, " ") #ファイル名に使えない文字をスペースで置換
         newfile = "#{id}_#{title}#{ext}" #新しいファイル名
